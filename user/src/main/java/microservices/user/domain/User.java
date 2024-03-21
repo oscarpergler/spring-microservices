@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 /*
-    User entity - User domain:
+    User entity
 
     Here we use lombok annotations to help us write boilerplate code, allowing us to focus on
     what is important to the domain.
