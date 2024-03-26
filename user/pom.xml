@@ -11,8 +11,8 @@
 	<groupId>microservices</groupId>
 	<artifactId>user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user</name>
-	<description>user domain</description>
+	<name>post</name>
+	<description>post domain</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
