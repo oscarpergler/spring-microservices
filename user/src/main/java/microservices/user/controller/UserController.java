@@ -3,8 +3,10 @@ package microservices.user.controller;
 import java.util.List;
 import java.util.Optional;
 
-import microservices.user.repository.UserRepository;
+import jakarta.validation.Valid;
+import microservices.user.entity.UserDTO;
 import microservices.user.entity.User;
+import microservices.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,26 +17,26 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/all")
-    List<User> all() {
-        return (List<User>) userRepository.findAll();
+    List<User> getAllUsers() {
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable final Long id) {
-        return userRepository.findById(id);
+        return userService.getUser(id);
     }
 
     @PostMapping("/create")
-    User createUser(@RequestBody User newUsers) {
-        return userRepository.save(newUsers);
+    User createUser(@RequestBody @Valid UserDTO userDTO) {
+        return userService.verifyUser(userDTO);
     }
 
     @DeleteMapping("/{id}")
     void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
     }
 
 }
