@@ -1,7 +1,10 @@
-package microservices.user.domain;
+package microservices.user.controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import microservices.user.repository.UserRepository;
+import microservices.user.entity.User;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

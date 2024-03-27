@@ -1,4 +1,4 @@
-package microservices.user.domain;
+package microservices.user.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
