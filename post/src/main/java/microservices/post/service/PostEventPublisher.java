@@ -12,16 +12,20 @@ public class PostEventPublisher {
 
     private final String postsTopicExchange;
 
-    public PostEventPublisher(final AmqpTemplate amqpTemplate, @Value("${amqp.exchange.new-posts}") final String postsTopicExchange) {
+    public PostEventPublisher(final AmqpTemplate amqpTemplate, @Value("${amqp.exchange.post}") final String postsTopicExchange) {
         this.amqpTemplate = amqpTemplate;
         this.postsTopicExchange = postsTopicExchange;
     }
 
+    /*
+        We can add additional bindings later on such as "postDeleted",
+        as of now posts cant be deleted to avoid problems with db consistency across services
+    */
     public void postCreated(final Post post) {
         PostEvent event = buildEvent(post);
-        String routingKey = "posts"; // We can add additional bindings later on
-        // Convert a Java object to an Amqp Message and send it to a specific exchange with a specific routing key.
-        amqpTemplate.convertAndSend(postsTopicExchange, routingKey, event);
+        String routingKey = "postCreated";
+
+        amqpTemplate.convertAndSend(postsTopicExchange, routingKey, event); // Convert a Java object to an Amqp Message and send it to a specific exchange with a specific routing key.
     }
 
     private PostEvent buildEvent(final Post attempt) {

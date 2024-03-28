@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class AMQPConfiguration {
     @Bean
     public TopicExchange postsTopicExchange(
-            @Value("${amqp.exchange.new-posts}") final String exchangeName) {
+            @Value("${amqp.exchange.post}") final String exchangeName) {
         return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
     }
     @Bean

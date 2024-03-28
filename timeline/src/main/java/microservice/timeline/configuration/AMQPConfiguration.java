@@ -15,12 +15,12 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 public class AMQPConfiguration {
 
     @Bean
-    public TopicExchange challengesTopicExchange(@Value("${amqp.exchange.new-posts}") final String exchangeName) {
+    public TopicExchange challengesTopicExchange(@Value("${amqp.exchange.post}") final String exchangeName) {
         return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
     }
 
     @Bean
-    public Queue postQueue(@Value("${amqp.queue.post}") final String queueName) {
+    public Queue postQueue(@Value("${amqp.queue.postCreated}") final String queueName) {
         return QueueBuilder.durable(queueName).build();
     }
 
@@ -28,7 +28,7 @@ public class AMQPConfiguration {
     public Binding postBinding(final Queue postQueue, final TopicExchange postsExchange) {
         return BindingBuilder.bind(postQueue)
                 .to(postsExchange)
-                .with("new-post.posts"); // TOOD: Desperately need to rename these exchanges and bindings
+                .with("post.postCreated");
     }
 
     /*
