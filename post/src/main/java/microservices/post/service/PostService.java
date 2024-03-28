@@ -12,6 +12,7 @@ public interface PostService {
 
     Post verifyPost(PostDTO postDTO);
 
+    // Remove when timeline is finished
     List<Post> getPostsFromUser(Long userId);
 
     Optional<Post> getPost(Long postId);
