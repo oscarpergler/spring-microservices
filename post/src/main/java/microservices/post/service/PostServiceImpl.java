@@ -5,7 +5,6 @@ import microservices.post.entity.Post;
 import microservices.post.entity.PostDTO;
 import microservices.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,8 @@ public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
 
+    private final PostEventPublisher postEventPublisher;
+
     @Override
     public List<Post> findAll() {
         return (List<Post>) postRepository.findAll();
@@ -22,7 +23,9 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public Post verifyPost(PostDTO postDTO) {
-        return postRepository.save(new Post(null, postDTO.getTitle(), postDTO.getBodytext(), postDTO.getUserId()));
+        Post storedPost = postRepository.save(new Post(null, postDTO.getTitle(), postDTO.getBodytext(), postDTO.getUserId()));
+        postEventPublisher.postCreated(storedPost);
+        return storedPost;
     }
 
     @Override

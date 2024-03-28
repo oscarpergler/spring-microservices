@@ -5,9 +5,6 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 import lombok.Value;
 
-/*
-    Data transform object used when receiving createPost requests from user.
-*/
 @Value
 public class PostDTO {
 
