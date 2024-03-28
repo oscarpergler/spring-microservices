@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AMQPConfiguration {
     @Bean
-    public FanoutExchange postsTopicExchange(
+    public TopicExchange postsTopicExchange(
             @Value("${amqp.exchange.new-posts}") final String exchangeName) {
         return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
     }
