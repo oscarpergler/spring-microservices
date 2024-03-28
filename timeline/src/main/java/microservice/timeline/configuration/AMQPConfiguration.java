@@ -13,20 +13,29 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 
 @Configuration
 public class AMQPConfiguration {
+
     @Bean
     public TopicExchange challengesTopicExchange(@Value("${amqp.exchange.new-posts}") final String exchangeName) {
         return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
     }
+
     @Bean
     public Queue postQueue(@Value("${amqp.queue.post}") final String queueName) {
         return QueueBuilder.durable(queueName).build();
     }
+
     @Bean
     public Binding postBinding(final Queue postQueue, final TopicExchange postsExchange) {
         return BindingBuilder.bind(postQueue)
                 .to(postsExchange)
                 .with("new-post.posts"); // TOOD: Desperately need to rename these exchanges and bindings
     }
+
+    /*
+        We also need some configuration on the consumer side to deserialize the messages using JSON,
+        instead of the format provided by the default's message converter.
+    */
+
     @Bean
     public MessageHandlerMethodFactory messageHandlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
