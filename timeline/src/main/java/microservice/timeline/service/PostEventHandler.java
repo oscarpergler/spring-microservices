@@ -16,18 +16,12 @@ public class PostEventHandler {
     void handleMultiplicationSolved(final PostEvent event) {
         log.info("PostEvent received: {}", event.getPostId());
         try {
-            tlService.appendPostToTimeline(event);
+            // Append postEvent to the right userId timeline
         } catch (final Exception e) {
             log.error("Error when trying to process PostEvent", e);
             // Avoids the event to be re-queued and reprocessed.
             throw new AmqpRejectAndDontRequeueException(e);
         }
     }
-
-    /*
-        Future work:
-        rewrite queues to be "CREATED" and "DELETED or "UPDATED".
-        This would enable us to handle PostEvents differently depending on what happened.
-        This would be necessary to keep the databases consistent.
-    */
+    
 }

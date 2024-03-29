@@ -1,13 +1,11 @@
 package microservice.timeline.service;
 
 import microservice.timeline.entity.PostEvent;
-
-import java.util.List;
+import microservice.timeline.entity.Timeline;
+import java.util.Optional;
 
 public interface TimelineService {
 
-    List<PostEvent> getTimelineByUserId(Long userId);
-
-    PostEvent appendPostToTimeline(PostEvent postEvent);
+    Optional<Timeline> getTimeline(Long userId);
 
 }

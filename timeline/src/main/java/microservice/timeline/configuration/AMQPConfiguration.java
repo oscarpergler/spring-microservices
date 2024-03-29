@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 @Configuration
 public class AMQPConfiguration {
 
+    // We've already created te exchange on the publisher side however to keep the services loosely coupled it is also created here
     @Bean
     public TopicExchange challengesTopicExchange(@Value("${amqp.exchange.post}") final String exchangeName) {
         return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
@@ -32,8 +33,7 @@ public class AMQPConfiguration {
     }
 
     /*
-        We also need some configuration on the consumer side to deserialize the messages using JSON,
-        instead of the format provided by the default's message converter.
+        We also need some configuration on the consumer side to deserialize the JSON messages into Java classes.
     */
 
     @Bean
