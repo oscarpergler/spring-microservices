@@ -40,9 +40,4 @@ public class PostController {
         return ResponseEntity.ok(postService.verifyPost(postDTO));
     }
 
-    @DeleteMapping("/{id}")
-    void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
-    }
-
 }
