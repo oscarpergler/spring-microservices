@@ -8,4 +8,6 @@ public interface TimelineService {
 
     Optional<Timeline> getTimeline(Long userId);
 
+    Optional<Timeline> createTimeline(PostEvent postEvent);
+
 }

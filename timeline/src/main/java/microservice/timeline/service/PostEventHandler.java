@@ -16,7 +16,7 @@ public class PostEventHandler {
     void handleMultiplicationSolved(final PostEvent event) {
         log.info("PostEvent received: {}", event.getPostId());
         try {
-            // Append postEvent to the right userId timeline
+            tlService.createTimeline(event);
         } catch (final Exception e) {
             log.error("Error when trying to process PostEvent", e);
             // Avoids the event to be re-queued and reprocessed.
