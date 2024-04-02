@@ -14,7 +14,7 @@ public class PostEventHandler {
 
     private final TimelineService tlService;
     @RabbitListener(queues = "${amqp.queue.postCreated}")
-    void handleMultiplicationSolved(final PostEvent event) {
+    void handlePostReceived(final PostEvent event) {
         log.info("PostEvent received: {}", event.getPostId());
         try {
             tlService.createTimeline(event);

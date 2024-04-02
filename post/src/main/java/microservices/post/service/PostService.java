@@ -12,8 +12,6 @@ public interface PostService {
 
     Post createPost(PostDTO postDTO);
 
-    // Remove when timeline is finished
-    List<Post> getPostsFromUser(Long userId);
 
     Optional<Post> getPost(Long postId);
 

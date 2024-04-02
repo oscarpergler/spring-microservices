@@ -23,7 +23,7 @@ public class PostEventPublisher {
     */
     public void postCreated(final Post post) {
         PostEvent event = buildEvent(post);
-        String routingKey = "postCreated";
+        String routingKey = "post.postCreated";
 
         amqpTemplate.convertAndSend(postsTopicExchange, routingKey, event); // Convert a Java object to an Amqp Message and send it to a specific exchange with a specific routing key.
     }

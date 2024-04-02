@@ -30,11 +30,6 @@ public class PostController {
         return postService.getPost(id);
     }
 
-    @GetMapping("/user/{id}")
-    List<Post> getPostsByUserId(@PathVariable final Long id) {
-        return postService.getPostsFromUser(id);
-    }
-
     @PostMapping("/create")
     ResponseEntity<Post> createPost(@RequestBody @Valid PostDTO postDTO) {
         return ResponseEntity.ok(postService.createPost(postDTO));
