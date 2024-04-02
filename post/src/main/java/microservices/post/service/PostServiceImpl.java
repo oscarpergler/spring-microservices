@@ -1,5 +1,6 @@
 package microservices.post.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import microservices.post.entity.Post;
 import microservices.post.entity.PostDTO;
@@ -21,6 +22,7 @@ public class PostServiceImpl implements PostService{
         return (List<Post>) postRepository.findAll();
     }
 
+    @Transactional
     @Override
     public Post createPost(PostDTO postDTO) {
         Post storedPost = postRepository.save(new Post(null, postDTO.getTitle(), postDTO.getBodytext(), postDTO.getUserId()));
