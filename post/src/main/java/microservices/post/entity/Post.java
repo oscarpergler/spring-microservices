@@ -20,18 +20,12 @@ public class Post {
 
     @Id
     @GeneratedValue
-    @Getter
     private Long postId;
 
-    @Getter
-    @Setter
     private String title;
 
-    @Getter
-    @Setter
     private String bodytext;
 
-    @Getter
     private Long userId;
 
 }

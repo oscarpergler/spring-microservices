@@ -31,21 +31,4 @@ public class AMQPConfiguration {
                 .to(postsExchange)
                 .with("post.postCreated");
     }
-
-    /*
-        We also need some configuration on the consumer side to deserialize the JSON messages into Java classes.
-    */
-
-    @Bean
-    public MessageHandlerMethodFactory messageHandlerMethodFactory() {
-        DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
-        final MappingJackson2MessageConverter jsonConverter = new MappingJackson2MessageConverter();
-        jsonConverter.getObjectMapper().registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
-        factory.setMessageConverter(jsonConverter);
-        return factory;
-    }
-    @Bean
-    public RabbitListenerConfigurer rabbitListenerConfigurer(final MessageHandlerMethodFactory messageHandlerMethodFactory) {
-        return (c) -> c.setMessageHandlerMethodFactory(messageHandlerMethodFactory);
-    }
 }

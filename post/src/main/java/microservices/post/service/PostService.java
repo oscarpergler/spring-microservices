@@ -10,7 +10,7 @@ public interface PostService {
 
     List<Post> findAll();
 
-    Post verifyPost(PostDTO postDTO);
+    Post createPost(PostDTO postDTO);
 
     // Remove when timeline is finished
     List<Post> getPostsFromUser(Long userId);

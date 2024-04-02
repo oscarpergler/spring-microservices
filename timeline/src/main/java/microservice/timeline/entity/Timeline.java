@@ -1,6 +1,6 @@
 package microservice.timeline.entity;
 
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
@@ -17,4 +17,5 @@ public class Timeline {
 
     @Getter
     private List<PostEvent> postEvents;
+
 }

@@ -22,7 +22,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Post verifyPost(PostDTO postDTO) {
+    public Post createPost(PostDTO postDTO) {
         Post storedPost = postRepository.save(new Post(null, postDTO.getTitle(), postDTO.getBodytext(), postDTO.getUserId()));
         postEventPublisher.postCreated(storedPost);
         return storedPost;

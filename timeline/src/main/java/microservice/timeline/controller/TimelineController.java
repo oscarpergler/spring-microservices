@@ -18,8 +18,8 @@ public class TimelineController {
 
     private final TimelineService timelineService;
 
-    @GetMapping("/{userId]")
-    Optional<Timeline> getUserTimeline(@RequestBody Long userId) {
+    @GetMapping("/{userId}")
+    Optional<Timeline> getUserTimeline(@PathVariable Long userId) {
         return timelineService.getTimeline(userId);
     }
 
