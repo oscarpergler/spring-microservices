@@ -20,5 +20,5 @@ Redis config source: https://www.baeldung.com/spring-data-redis-tutorial
 
 ### consul temp container:
 
-```docker run -d --name=consul-dev -p 8500:8500 consul agent -dev```
+```docker run -d --name=consul-dev -p 8500:8500 consul:1.7.2 agent -node=microservices -dev```
 
