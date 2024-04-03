@@ -1,27 +1,30 @@
 server:
-  port: 8000
+  port: 8080
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
-      routes:
-        - id: post
-          uri: http://localhost:8081/
-          predicates:
-            - Path=/posts/**
-        - id: timeline
-          uri: http://localhost:8082/
-          predicates:
-            - Path=/timeline/**
-        - id: user
-          uri: http://localhost:8083/
-          predicates:
-            - Path=/users/**
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000"
-            allowedHeaders:
-              - "*"
-            allowedMethods:
-              - "GET"
-              - "POST"
+      mvc:
+        routes:
+          - id: post
+            uri: http://localhost:8081/
+            predicates:
+              - Path=/posts/**
+          - id: timeline
+            uri: http://localhost:8082/
+            predicates:
+              - Path=/timeline/**
+          - id: user
+            uri: http://localhost:8083/
+            predicates:
+              - Path=/users/**
+        globalcors:
+          cors-configurations:
+            '[/**]':
+              allowedOrigins: "http://localhost:3000"
+              allowedHeaders:
+                - "*"
+              allowedMethods:
+                - "GET"
+                - "POST"
