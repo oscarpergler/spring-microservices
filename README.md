@@ -18,3 +18,7 @@ Redis config source: https://www.baeldung.com/spring-data-redis-tutorial
 
 ```docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management```
 
+### consul temp container:
+
+```docker run -d --name=consul-dev -p 8500:8500 consul agent -dev```
+
