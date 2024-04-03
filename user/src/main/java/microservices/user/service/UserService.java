@@ -14,6 +14,4 @@ public interface UserService {
 
     Optional<User> getUser(Long userId);
 
-    void deleteUser(Long userId);
-
 }

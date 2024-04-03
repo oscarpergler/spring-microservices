@@ -34,9 +34,4 @@ public class UserController {
         return userService.verifyUser(userDTO);
     }
 
-    @DeleteMapping("/{id}")
-    void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-    }
-
 }
