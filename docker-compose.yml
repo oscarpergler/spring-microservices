@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  post:
+    image: post:1.0.0
+    depends_on:
+      - rabbitmq-dev
+    ports:
+      - '8081:8081'
+    networks:
+      - microservices
+  user:
+    image: user:1.0.0
+    depends_on:
+      - rabbitmq-dev
+    ports:
+      - '8083:8083'
+    networks:
+      - microservices
+  timeline:
+    image: timeline:1.0.0
+    depends_on:
+      - rabbitmq-dev
+      - redis
+    ports:
+      - '8082:8082'
+    networks:
+      - microservices
+  redis:
+    image: redislabs/redismod:latest
+    depends_on:
+      - rabbitmq-dev
+    networks:
+      - microservices
+  gateway:
+    image: gateway:1.0.0
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbitmq-dev
+    networks:
+      - microservices
+  rabbitmq-dev:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
