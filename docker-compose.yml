@@ -1,51 +1,67 @@
 version: "3"
-
 services:
-  post:
-    image: post:1.0.0
-    depends_on:
-      - rabbitmq-dev
+
+  consul:
+    image: consul:1.7.2
+    container_name: consul
+    # The UDP port 8600 is used by Consul nodes to talk to each other, so
+    # it's good to add it here even though we're using a single-node setup.
     ports:
-      - '8081:8081'
+      - '8500:8500'
+      - '8600:8600/udp'
+    command: 'agent -dev -node=microservices -client=0.0.0.0 -log-level=INFO'
     networks:
       - microservices
-  user:
-    image: user:1.0.0
-    depends_on:
-      - rabbitmq-dev
-    ports:
-      - '8083:8083'
-    networks:
-      - microservices
-  timeline:
-    image: timeline:1.0.0
-    depends_on:
-      - rabbitmq-dev
-      - redis
-    ports:
-      - '8082:8082'
-    networks:
-      - microservices
-  redis:
-    image: redislabs/redismod:latest
-    depends_on:
-      - rabbitmq-dev
-    networks:
-      - microservices
-  gateway:
-    image: gateway:1.0.0
-    ports:
-      - '8080:8080'
-    depends_on:
-      - rabbitmq-dev
-    networks:
-      - microservices
-  rabbitmq-dev:
+  rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
       - '5672:5672'
       - '15672:15672'
+    networks:
+      - microservices
+  redis:
+    image: redislabs/redismod
+    container_name: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - microservices
+
+  gateway:
+    image: gateway:1.0.0
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbitmq
+      - consul
+    networks:
+      - microservices
+  post:
+    image: post:1.0.0
+    ports:
+      - '8081:8081'
+    depends_on:
+      - rabbitmq
+      - consul
+    networks:
+      - microservices
+  timeline:
+    image: timeline:1.0.0
+    ports:
+      - '8082:8082'
+    depends_on:
+      - rabbitmq
+      - consul
+    networks:
+      - microservices
+  user:
+    image: user:1.0.0
+    ports:
+      - '8083:8083'
+    depends_on:
+      - rabbitmq
+      - consul
     networks:
       - microservices
 
