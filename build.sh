@@ -6,10 +6,10 @@ MODULES=("gateway" "post" "timeline" "user")
 # Function to compile and create Docker image for a module
 compile_and_build_module() {
     local module=$1
-    echo "Compiling and creating Docker image for $module..."
+    echo "Natively compiling and creating Docker image for $module... (5-15 minutes depending on your hardware)"
     cd "$SPRING_BOOT_PROJECT_DIR/$module" || exit
-    ./mvnw clean install -DskipTests
-    docker build -t "$module":1.0.0 .
+    ./mvnw clean
+    ./mvnw -Pnative spring-boot:build-image
     echo "Docker image for $module has been built successfully."
 }
 

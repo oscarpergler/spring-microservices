@@ -1,7 +1,6 @@
 package microservices.user.entity;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import lombok.Value;
 import org.hibernate.validator.constraints.Length;
 
