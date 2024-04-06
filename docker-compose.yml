@@ -29,7 +29,7 @@ services:
       - microservices
 
   gateway:
-    image: gateway:1.0.0-SNAPSHOT
+    image: gateway:0.0.1-SNAPSHOT
     ports:
       - '8080:8080'
     depends_on:
@@ -38,7 +38,7 @@ services:
     networks:
       - microservices
   post:
-    image: post:1.0.0-SNAPSHOT
+    image: post:0.0.1-SNAPSHOT
     ports:
       - '8081:8081'
     depends_on:
@@ -47,7 +47,7 @@ services:
     networks:
       - microservices
   timeline:
-    image: timeline:1.0.0-SNAPSHOT
+    image: timeline:0.0.1-SNAPSHOT
     ports:
       - '8082:8082'
     depends_on:
@@ -56,7 +56,7 @@ services:
     networks:
       - microservices
   user:
-    image: user:1.0.0-SNAPSHOT
+    image: user:0.0.1-SNAPSHOT
     ports:
       - '8083:8083'
     depends_on:
