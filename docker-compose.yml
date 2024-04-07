@@ -40,7 +40,7 @@ services:
       - microservices
   posts:
     container_name: posts
-    image: post:0.0.1-SNAPSHOT
+    image: posts:0.0.1-SNAPSHOT
     ports:
       - '8081:8081'
     depends_on:
@@ -60,7 +60,7 @@ services:
       - microservices
   users:
     container_name: users
-    image: user:0.0.1-SNAPSHOT
+    image: users:0.0.1-SNAPSHOT
     ports:
       - '8083:8083'
     depends_on:
