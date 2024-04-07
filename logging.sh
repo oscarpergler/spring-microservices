@@ -41,7 +41,7 @@ SERVICE_ENDPOINT="http://localhost:$PORT/actuator/health/liveness"
 
 for ((i=1; i<=$ITERATIONS; i++))
 do
-    echo "$CONTAINER_NAME: Iteration $i"
+    echo "************ $CONTAINER_NAME: Iteration $i ************"
 
     # Check service readiness
     response=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_ENDPOINT)
@@ -55,15 +55,23 @@ do
     if [ $response -eq 200 ]; then
         echo "Service is ready. Collecting logs..."
 
-        # Restart container
+        # Collect logs
+        docker logs $CONTAINER_NAME | grep "process running for" >> $LOG_FILE
+
+        echo "Logs collected."
+
+        # Stop container and create a new one (Restart won't suffice)
         echo "Restarting container $CONTAINER_NAME..."
-        docker restart $CONTAINER_NAME
+        docker-compose stop "$CONTAINER_NAME"
+        docker-compose rm -f "$CONTAINER_NAME"
+
+        sleep 5
+
+        # Start a new container from the same image and attach it to the Docker Compose network
+        docker-compose up -d "$CONTAINER_NAME"
     fi
 
     sleep 5  # Adjust sleep duration as needed
 done
-
-# Collect logs
-docker logs $CONTAINER_NAME | grep "process running for" >> $LOG_FILE
 
 echo "Script completed"
