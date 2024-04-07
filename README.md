@@ -14,6 +14,7 @@ run cold start test: ```./logging.sh <container_name>```
 ## Future work
 * Social graph service to pair with timeline, as of right now it does not make much more sense than simply having a getAllPosts filtered on users
 * Better error and exception handling
+* Write tests
 * A frontend
 
 ## These containers must be run for the system to work
