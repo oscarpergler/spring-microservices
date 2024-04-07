@@ -1,9 +1,9 @@
 package microservice.timeline.service;
 
-import jakarta.transaction.Transactional;
 import microservice.timeline.entity.PostEvent;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +15,10 @@ public class PostEventHandler {
 
     private final TimelineService tlService;
 
+    @RegisterReflectionForBinding(PostEvent.class)
     @RabbitListener(queues = "${amqp.queue.postCreated}")
     void handlePostReceived(final PostEvent event) {
-        log.info("PostEvent received: {}", event.getPostId());
+        log.info("PostEvent received: {}", event);
         try {
             tlService.createTimeline(event);
         } catch (final Exception e) {
