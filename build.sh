@@ -1,7 +1,7 @@
 #! /bin/bash
 
 SPRING_BOOT_PROJECT_DIR=$(pwd)
-MODULES=("gateway" "post" "timeline" "user")
+MODULES=("gateway" "posts" "timeline" "users")
 
 # Function to compile and create Docker image for a module
 compile_and_build_module() {
