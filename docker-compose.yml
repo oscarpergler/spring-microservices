@@ -29,6 +29,7 @@ services:
       - microservices
 
   gateway:
+    container_name: gateway
     image: gateway:0.0.1-SNAPSHOT
     ports:
       - '8080:8080'
@@ -37,7 +38,8 @@ services:
       - consul
     networks:
       - microservices
-  post:
+  posts:
+    container_name: posts
     image: post:0.0.1-SNAPSHOT
     ports:
       - '8081:8081'
@@ -47,6 +49,7 @@ services:
     networks:
       - microservices
   timeline:
+    container_name: timeline
     image: timeline:0.0.1-SNAPSHOT
     ports:
       - '8082:8082'
@@ -55,7 +58,8 @@ services:
       - consul
     networks:
       - microservices
-  user:
+  users:
+    container_name: users
     image: user:0.0.1-SNAPSHOT
     ports:
       - '8083:8083'
