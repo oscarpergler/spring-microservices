@@ -29,7 +29,8 @@ services:
       - microservices
 
   gateway:
-    image: gateway:1.0.0
+    container_name: gateway
+    image: gateway:latest
     ports:
       - '8080:8080'
     depends_on:
@@ -37,8 +38,9 @@ services:
       - consul
     networks:
       - microservices
-  post:
-    image: post:1.0.0
+  posts:
+    container_name: posts
+    image: post:latest
     ports:
       - '8081:8081'
     depends_on:
@@ -47,7 +49,8 @@ services:
     networks:
       - microservices
   timeline:
-    image: timeline:1.0.0
+    container_name: timeline
+    image: timeline:latest
     ports:
       - '8082:8082'
     depends_on:
@@ -55,8 +58,9 @@ services:
       - consul
     networks:
       - microservices
-  user:
-    image: user:1.0.0
+  users:
+    container_name: users
+    image: user:latest
     ports:
       - '8083:8083'
     depends_on:

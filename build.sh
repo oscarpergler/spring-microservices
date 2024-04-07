@@ -9,7 +9,7 @@ compile_and_build_module() {
     echo "Compiling and creating Docker image for $module..."
     cd "$SPRING_BOOT_PROJECT_DIR/$module" || exit
     ./mvnw clean install -DskipTests
-    docker build -t "$module":1.0.0 .
+    docker build -t "$module" .
     echo "Docker image for $module has been built successfully."
 }
 
