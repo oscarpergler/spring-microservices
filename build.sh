@@ -8,8 +8,8 @@ compile_and_build_module() {
     local module=$1
     echo "Compiling and creating Docker image for $module..."
     cd "$SPRING_BOOT_PROJECT_DIR/$module" || exit
-    ./mvnw clean install -DskipTests
-    docker build -t "$module" .
+    ./mvnw clean
+    ./mvnw spring-boot:build-image
     echo "Docker image for $module has been built successfully."
 }
 

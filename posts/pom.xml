@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>microservices</groupId>
-    <artifactId>post</artifactId>
+    <artifactId>posts</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>post</name>
+    <name>posts</name>
     <description>post domain</description>
 
     <properties>

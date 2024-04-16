@@ -28,9 +28,14 @@ services:
     networks:
       - microservices
 
+  frontend:
+    image: frontend:latest
+    container_name: frontend
+    ports:
+      - '3000:80'
   gateway:
     container_name: gateway
-    image: gateway:latest
+    image: gateway:0.0.1-SNAPSHOT
     ports:
       - '8080:8080'
     depends_on:
@@ -40,7 +45,7 @@ services:
       - microservices
   posts:
     container_name: posts
-    image: posts:latest
+    image: posts:0.0.1-SNAPSHOT
     ports:
       - '8081:8081'
     depends_on:
@@ -50,7 +55,7 @@ services:
       - microservices
   timeline:
     container_name: timeline
-    image: timeline:latest
+    image: timeline:0.0.1-SNAPSHOT
     ports:
       - '8082:8082'
     depends_on:
@@ -60,7 +65,7 @@ services:
       - microservices
   users:
     container_name: users
-    image: users:latest
+    image: users:0.0.1-SNAPSHOT
     ports:
       - '8083:8083'
     depends_on:
