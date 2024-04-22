@@ -13,7 +13,7 @@ ITERATIONS=30
 CONTAINER_NAME="$1"
 
 # Log file
-LOG_FILE="$CONTAINER_NAME.txt"
+LOG_FILE="./jitlogs-buildpack/$CONTAINER_NAME.txt"
 
 touch "$LOG_FILE"
 
