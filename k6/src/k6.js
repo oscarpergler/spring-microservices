@@ -11,7 +11,8 @@ export default function () {
 
 /**
  You must first pull the k6 image: docker pull grafana/k6
- Then run the following command to run the test:
 
- docker run --rm --network=microservices -v C:/Users/oscar/Documents/exjobb/compiled-javaservices/k6/src:/src -i grafana/k6 run /src/k6.js
+ adjust the directory as needed:
+
+ docker run --rm --network=microservices -v C:/Users/oscar/Projekt/compiled-javaservices/k6/src:/src -i grafana/k6 run /src/k6.js
  **/
