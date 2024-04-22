@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 services:
 
   consul:
@@ -71,4 +71,5 @@ services:
 
 networks:
   microservices:
+    name: microservices
     driver: bridge

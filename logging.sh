@@ -6,13 +6,10 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-# Number of iterations
 ITERATIONS=30
 
-# Container name provided as argument
 CONTAINER_NAME="$1"
 
-# Log file
 LOG_FILE="$CONTAINER_NAME.txt"
 
 touch "$LOG_FILE"
@@ -36,14 +33,12 @@ case "$CONTAINER_NAME" in
         ;;
 esac
 
-# Service endpoint
 SERVICE_ENDPOINT="http://localhost:$PORT/actuator/health/liveness"
 
 for ((i=1; i<=$ITERATIONS; i++))
 do
     echo "************ $CONTAINER_NAME: Iteration $i ************"
 
-    # Check service readiness
     response=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_ENDPOINT)
 
     while [ $response -ne 200 ]; do
@@ -55,7 +50,6 @@ do
     if [ $response -eq 200 ]; then
         echo "Service is ready. Collecting logs..."
 
-        # Collect logs
         docker logs $CONTAINER_NAME | grep "process running for" >> $LOG_FILE
 
         echo "Logs collected."
@@ -71,7 +65,7 @@ do
         docker-compose up -d "$CONTAINER_NAME"
     fi
 
-    sleep 5  # Adjust sleep duration as needed
+    sleep 5
 done
 
 echo "Script completed"
