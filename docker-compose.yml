@@ -28,11 +28,6 @@ services:
     networks:
       - microservices
 
-  frontend:
-    image: frontend:latest
-    container_name: frontend
-    ports:
-      - '3000:80'
   gateway:
     container_name: gateway
     image: gateway:0.0.1-SNAPSHOT
