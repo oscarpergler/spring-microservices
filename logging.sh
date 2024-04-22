@@ -7,13 +7,13 @@ if [ $# -ne 1 ]; then
 fi
 
 # Number of iterations
-ITERATIONS=30
+ITERATIONS=200
 
 # Container name provided as argument
 CONTAINER_NAME="$1"
 
 # Log file
-LOG_FILE="./jitlogs-buildpack/$CONTAINER_NAME.txt"
+LOG_FILE="./test/$CONTAINER_NAME.txt"
 
 touch "$LOG_FILE"
 
