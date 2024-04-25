@@ -13,12 +13,11 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/timeline")
 public class TimelineController {
 
     private final TimelineService timelineService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/timeline/{userId}")
     Optional<Timeline> getUserTimeline(@PathVariable Long userId) {
         return timelineService.getTimeline(userId);
     }
