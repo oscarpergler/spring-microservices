@@ -15,22 +15,21 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/all")
+    @GetMapping("/posts")
     List<Post> getAllPosts() {
         return postService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/posts/{id}")
     Optional<Post> getPostById(@PathVariable final Long id) {
         return postService.getPost(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/posts")
     ResponseEntity<Post> createPost(@RequestBody @Valid PostDTO postDTO) {
         return ResponseEntity.ok(postService.createPost(postDTO));
     }

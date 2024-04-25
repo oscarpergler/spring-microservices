@@ -14,22 +14,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/all")
+    @GetMapping("/users")
     List<User> getAllUsers() {
         return userService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable final Long id) {
         return userService.getUser(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/users")
     User createUser(@RequestBody @Valid UserDTO userDTO) {
         return userService.verifyUser(userDTO);
     }
