@@ -39,7 +39,7 @@ for ((i=1; i<=$ITERATIONS; i++))
 do
     echo "************ $CONTAINER_NAME: Iteration $i ************"
 
-    # Check service readiness
+    # Check service liveness
     response=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_ENDPOINT)
 
     while [ $response -ne 200 ]; do
