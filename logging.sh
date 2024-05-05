@@ -66,7 +66,7 @@ do
         docker-compose up -d "$CONTAINER_NAME"
     fi
 
-    sleep 5  # Adjust sleep duration as needed
+    sleep 5
 done
 
 echo "Script completed"
