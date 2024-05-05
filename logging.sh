@@ -1,15 +1,12 @@
 #! /bin/bash
 
-# Check if container name is provided as argument
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <container_name>"
     exit 1
 fi
 
-# Number of iterations
 ITERATIONS=200
 
-# Container name provided as argument
 CONTAINER_NAME="$1"
 
 # Log file
@@ -36,7 +33,6 @@ case "$CONTAINER_NAME" in
         ;;
 esac
 
-# Service endpoint
 SERVICE_ENDPOINT="http://localhost:$PORT/actuator/health/liveness"
 
 for ((i=1; i<=$ITERATIONS; i++))
@@ -60,7 +56,6 @@ do
 
         echo "Logs collected."
 
-        # Stop container and create a new one (Restart won't suffice)
         echo "Restarting container $CONTAINER_NAME..."
         docker-compose stop "$CONTAINER_NAME"
         docker-compose rm -f "$CONTAINER_NAME"
