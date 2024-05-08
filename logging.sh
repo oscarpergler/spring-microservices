@@ -9,10 +9,11 @@ ITERATIONS=200
 
 CONTAINER_NAME="$1"
 
-# Log file
 LOG_FILE="./test/$CONTAINER_NAME.txt"
+LOAD_LOG_FILE="./test/$CONTAINER_NAME-cpu-load.txt"
 
 touch "$LOG_FILE"
+touch "$LOAD_LOG_FILE"
 
 case "$CONTAINER_NAME" in
     "posts")
@@ -64,6 +65,10 @@ do
 
         # Start a new container from the same image and attach it to the Docker Compose network
         docker-compose up -d "$CONTAINER_NAME"
+
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}')
+        echo "$timestamp CPU Load: $cpu_load%" >> "$LOAD_LOG_FILE"
     fi
 
     sleep 5
