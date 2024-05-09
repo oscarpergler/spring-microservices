@@ -1,18 +1,19 @@
 #! /bin/bash
 
-# Check if container name is provided as argument
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <container_name>"
     exit 1
 fi
 
-ITERATIONS=30
+ITERATIONS=1000
 
 CONTAINER_NAME="$1"
 
-LOG_FILE="$CONTAINER_NAME.txt"
+LOG_FILE="./data/final/$CONTAINER_NAME.txt"
+CPU_LOG="./data/final/$CONTAINER_NAME-cpu.txt"
 
 touch "$LOG_FILE"
+touch "$CPU_LOG"
 
 case "$CONTAINER_NAME" in
     "posts")
@@ -50,22 +51,26 @@ do
     if [ $response -eq 200 ]; then
         echo "Service is ready. Collecting logs..."
 
-        docker logs $CONTAINER_NAME | grep "process running for" >> $LOG_FILE
+        docker logs "$CONTAINER_NAME" | grep "process running for" >> "$LOG_FILE"
 
         echo "Logs collected."
 
-        # Stop container and create a new one (Restart won't suffice)
         echo "Restarting container $CONTAINER_NAME..."
         docker-compose stop "$CONTAINER_NAME"
         docker-compose rm -f "$CONTAINER_NAME"
 
-        sleep 5
+        sleep 2
 
         # Start a new container from the same image and attach it to the Docker Compose network
         docker-compose up -d "$CONTAINER_NAME"
-    fi
 
-    sleep 5
+        # Collect 3 CPU logs right after a cold start
+        for ((k=1; k<=3; k++))
+        do
+          echo "$k: Logging CPU..."
+          docker stats "$CONTAINER_NAME" --format "{{.CPUPerc}}" --no-stream >> "$CPU_LOG"
+        done
+    fi
 done
 
 echo "Script completed"
