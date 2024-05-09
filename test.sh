@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://signoz.io/blog/docker-stats/
+
 logfile="cpu_load.log"
 
 touch $logfile

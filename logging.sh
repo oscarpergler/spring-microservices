@@ -5,15 +5,15 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-ITERATIONS=200
+ITERATIONS=1000
 
 CONTAINER_NAME="$1"
 
-LOG_FILE="./test/$CONTAINER_NAME.txt"
-LOAD_LOG_FILE="./test/$CONTAINER_NAME-cpu-load.txt"
+LOG_FILE="./data/final/$CONTAINER_NAME.txt"
+CPU_LOG="./data/final/$CONTAINER_NAME-cpu.txt"
 
 touch "$LOG_FILE"
-touch "$LOAD_LOG_FILE"
+touch "$CPU_LOG"
 
 case "$CONTAINER_NAME" in
     "posts")
@@ -40,7 +40,6 @@ for ((i=1; i<=$ITERATIONS; i++))
 do
     echo "************ $CONTAINER_NAME: Iteration $i ************"
 
-    # Check service liveness
     response=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_ENDPOINT)
 
     while [ $response -ne 200 ]; do
@@ -52,8 +51,7 @@ do
     if [ $response -eq 200 ]; then
         echo "Service is ready. Collecting logs..."
 
-        # Collect logs
-        docker logs $CONTAINER_NAME | grep "process running for" >> $LOG_FILE
+        docker logs "$CONTAINER_NAME" | grep "process running for" >> "$LOG_FILE"
 
         echo "Logs collected."
 
@@ -61,17 +59,18 @@ do
         docker-compose stop "$CONTAINER_NAME"
         docker-compose rm -f "$CONTAINER_NAME"
 
-        sleep 5
+        sleep 2
 
         # Start a new container from the same image and attach it to the Docker Compose network
         docker-compose up -d "$CONTAINER_NAME"
 
-        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-        cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}')
-        echo "$timestamp CPU Load: $cpu_load%" >> "$LOAD_LOG_FILE"
+        # Collect 3 CPU logs right after a cold start
+        for ((k=1; k<=3; k++))
+        do
+          echo "$k: Logging CPU..."
+          docker stats "$CONTAINER_NAME" --format "{{.CPUPerc}}" --no-stream >> "$CPU_LOG"
+        done
     fi
-
-    sleep 5
 done
 
 echo "Script completed"
