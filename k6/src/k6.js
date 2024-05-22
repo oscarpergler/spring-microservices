@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-    vus: 1,
-    duration: '1000s',
+    vus: 5,
+    duration: '4000s',
 };
 
 /*
@@ -11,7 +11,7 @@ export const options = {
  Directly to service: http://posts:8081/posts
 */
 export default function () {
-    http.get('http://posts:8081/posts');
+    http.get('http://gateway:8080/posts');
     sleep(1);
 }
 
