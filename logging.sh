@@ -51,6 +51,7 @@ do
     if [ $response -eq 200 ]; then
         echo "Service is ready. Collecting logs..."
 
+        # to save myself from future cardiac arrest: This grabs the console line containing the start time as well... Not just "process running for"
         docker logs "$CONTAINER_NAME" | grep "process running for" >> "$LOG_FILE"
 
         echo "Logs collected."
@@ -61,10 +62,10 @@ do
 
         sleep 2
 
-        # Start a new container from the same image and attach it to the Docker Compose network
+        # start a new container from the same image and attach it to the Docker Compose network
         docker-compose up -d "$CONTAINER_NAME"
 
-        # Collect 3 CPU logs right after a cold start
+        # collect 3 CPU logs right after a cold start
         for ((k=1; k<=3; k++))
         do
           echo "$k: Logging CPU..."
